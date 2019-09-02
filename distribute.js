@@ -41,6 +41,7 @@ worker =
    tx_fee:            config.tx_fee,
    tx_fee_lessor:     config.tx_fee_lessor,
    api_key:           config.api_key,
+   request_timeout:   config.request_timeout,
 
    argv_distribution: "dist",
    argv_payment: "pay",
@@ -351,7 +352,7 @@ worker =
 
       return new Promise(function(resolve, reject)
       {
-         request.get({url: worker.node + "/blocks/height", json: true, timeout: 20000, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
+         request.get({url: worker.node + "/blocks/height", json: true, timeout: worker.request_timeout, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
          {
             if(error)
             {
@@ -403,7 +404,7 @@ worker =
          return new Promise(function(resolve, reject)
          {
             worker.log("get blocks from " + range.start + " to " + range.end, worker.log_level_debug);
-            request.get({url: worker.node + "/blocks/seq/" + range.start + "/" + range.end, json: true, timeout: 50000, headers:{"Connection": "keep-alive", "Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
+            request.get({url: worker.node + "/blocks/seq/" + range.start + "/" + range.end, json: true, timeout: worker.request_timeout, headers:{"Connection": "keep-alive", "Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
             {
                if(error)
                {
