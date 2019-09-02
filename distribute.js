@@ -351,7 +351,7 @@ worker =
 
       return new Promise(function(resolve, reject)
       {
-         request.get({url: worker.node + "/blocks/height", json: true, timeout: 5000, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
+         request.get({url: worker.node + "/blocks/height", json: true, timeout: 20000, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
          {
             if(error)
             {
@@ -403,7 +403,7 @@ worker =
          return new Promise(function(resolve, reject)
          {
             worker.log("get blocks from " + range.start + " to " + range.end, worker.log_level_debug);
-            request.get({url: worker.node + "/blocks/seq/" + range.start + "/" + range.end, json: true, timeout: 40000, headers:{"Connection": "keep-alive", "Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
+            request.get({url: worker.node + "/blocks/seq/" + range.start + "/" + range.end, json: true, timeout: 50000, headers:{"Connection": "keep-alive", "Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
             {
                if(error)
                {
