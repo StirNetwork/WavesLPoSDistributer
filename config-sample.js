@@ -13,6 +13,7 @@ exports.config = {
     ddress:'',
     node:'http://127.0.0.1:6869',
     api_key:'',
+    request_timeout:50000,
     generating_offset:1000,
     tx_timeout:90,
     tx_fee:100000,
