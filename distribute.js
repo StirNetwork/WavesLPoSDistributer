@@ -1454,7 +1454,7 @@ worker =
       {
          return new Promise(function(resolve, reject)
          {
-            request.get({url: worker.node + "/addresses/effectiveBalance/" + worker.address + "/1000", json: true, timeout: 5000, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
+            request.get({url: worker.node + "/addresses/effectiveBalance/" + worker.address + "/1000", json: true, timeout: worker.request_timeout, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
             {
                if(error)
                {
