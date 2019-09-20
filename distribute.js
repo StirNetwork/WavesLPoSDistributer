@@ -353,7 +353,7 @@ worker =
    {
       worker.log("start getting end block...", worker.log_level_info);
 
-      deley = 1;
+      delay = 1;
       count = 0;
       function attempt(callback)
       {
@@ -379,13 +379,13 @@ worker =
       }
 
       function retryOrFinish(callback) {
-         deley *= 2;
-         if (deley > worker.maxRetryDelay) { deley = worker.maxRetryDelay }
+         delay *= 2;
+         if (delay > worker.maxRetryDelay) { delay = worker.maxRetryDelay }
          if (count++ > worker.maxRetryCount) {
             callback(new Error("Max retries exceeded"));
             return;
          }
-         setTimeout(attempt.bind(null, callback), t * 1000);
+         setTimeout(attempt.bind(null, callback), delay * 1000);
       }
 
       return new Promise(function(resolve, reject) {
