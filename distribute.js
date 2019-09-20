@@ -93,6 +93,9 @@ worker =
    isPayment: false,
    isBalance: false,
 
+   maxRetryCount: 10,
+   maxRetryDelay: 30,
+
    init: function()
    {
       worker.log("----- BEGIN ------", worker.log_level_info);
@@ -350,27 +353,49 @@ worker =
    {
       worker.log("start getting end block...", worker.log_level_info);
 
-      return new Promise(function(resolve, reject)
+      deley = 1;
+      count = 0;
+      function attempt(callback)
       {
          request.get({url: worker.node + "/blocks/height", json: true, timeout: worker.request_timeout, headers:{"Accept": "application/json", "Content-Type": "application/json"}}, function(error, response, body)
          {
             if(error)
             {
                worker.log("ERROR: end block couldn't be got: " + error, worker.log_level_info);
-               reject();
+               retryOrFinish(callback);
             }
             else if(response.statusCode != 200)
             {
                worker.log("ERROR: end block couldn't be got: RESPONSE: " + JSON.stringify(response) + ", BODY: " + JSON.stringify(body), worker.log_level_info);
-               reject();
+               retryOrFinish(callback);
             }
             else
             {
                worker.endBlock = body.height;
                worker.log("end block got: " + worker.endBlock + " -> next", worker.log_level_info);
-               resolve();
+               callback();
             }
          });
+      }
+
+      function retryOrFinish(callback) {
+         deley *= 2;
+         if (deley > worker.maxRetryDelay) { deley = worker.maxRetryDelay }
+         if (count++ > worker.maxRetryCount) {
+            callback(new Error("Max retries exceeded"));
+            return;
+         }
+         setTimeout(attempt.bind(null, callback), t * 1000);
+      }
+
+      return new Promise(function(resolve, reject) {
+        attempt(function(err) {
+          if (err) {
+            reject();
+            return;
+          }
+          resolve();
+        });
       });
    },
 
