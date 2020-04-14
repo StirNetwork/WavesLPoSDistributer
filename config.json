@@ -1,0 +1,44 @@
+{
+	"paymentconfig" : {
+		"paymentnode_api" : "http://localhost:6869",
+		"paymentnode_apikey" : "<<your api key here>>",
+		"querynode_api" : "http://localhost:6869",
+		"nodename" : "my node",
+		"feedistributionpercentage" : "90",
+		"mrtperblock" : "0",
+		"leasewallet" : "<<your leasewallet here>>",
+		"transactionattachment" : "NK2oQJzq7sjCvh7AjJcLjLT9Ax",
+		"firstleaserblock" : "1370000",
+		"paystartblock" : "1370000",
+		"blockwindowsize" : "5000",
+		"nopayoutaddresses" : [ ],
+		"mail" : "<<your email address>>",
+		"payreports" : {
+			"provider" : "",
+			"destination" : "",
+			"region" : "",
+			"requesturlprefix" : ""
+		},
+		"socialmedia" : {
+			"provider" : "",
+			"destination" : "",
+			"region" : ""
+		}
+	},
+	"toolbaseconfig" : {
+		"batchinfofile" : "batchinfo.json",
+		"payqueuefile" : "payqueue.dat",
+		"socialmediafile" : "socialmedia.txt",
+		"payoutfilesprefix" : "wavesleaserpayouts",
+		"paymentsdonedir" : "paymentsDone/",
+		"txbasefee" : "100000",
+		"masstransferpertxfee" : "50000",
+		"maxmasstransfertxs" : "100",
+		"transactiontimeout" : "1000",
+		"transactionapisuffix" : "/assets/transfer",
+		"masstxapisuffix" : "/assets/masstransfer",
+		"masstransferversion" : "1",
+		"relevantassets" : [ "Waves", "Mrt" ],
+		"optimizerdir": "txoptimizer"
+	}
+}
